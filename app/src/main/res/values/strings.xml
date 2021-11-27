@@ -5,4 +5,6 @@
     <string name="article">Article</string>
     <string name="notification">Notification</string>
     <string name="stats">Stats</string>
+    <string name="reminder">Reminder</string>
+    <string name="interesting_facts">Interesting Facts</string>
 </resources>

@@ -9,7 +9,11 @@
         android:id="@+id/articleFragment"
         android:name="com.psi.smarttoothcare.ui.article.ArticleFragment"
         android:label="fragment_article"
-        tools:layout="@layout/fragment_article" />
+        tools:layout="@layout/fragment_article" >
+        <action
+            android:id="@+id/action_articleFragment_to_articleDetailFragment"
+            app:destination="@id/articleDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/reminderFragment"
         android:name="com.psi.smarttoothcare.ui.reminder.ReminderFragment"
@@ -20,4 +24,13 @@
         android:name="com.psi.smarttoothcare.ui.stats.StatsFragment"
         android:label="fragment_stats"
         tools:layout="@layout/fragment_stats" />
+    <fragment
+        android:id="@+id/articleDetailFragment"
+        android:name="com.psi.smarttoothcare.ui.articledetail.ArticleDetailFragment"
+        android:label="fragment_article_detail"
+        tools:layout="@layout/fragment_article_detail" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
 </navigation>
