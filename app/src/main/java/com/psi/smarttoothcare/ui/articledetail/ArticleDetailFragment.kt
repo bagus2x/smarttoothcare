@@ -49,6 +49,7 @@ class ArticleDetailFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.vwArticle.destroy()
         _binding = null
     }
 }

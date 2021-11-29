@@ -18,7 +18,11 @@
         android:id="@+id/reminderFragment"
         android:name="com.psi.smarttoothcare.ui.reminder.ReminderFragment"
         android:label="fragment_reminder"
-        tools:layout="@layout/fragment_reminder" />
+        tools:layout="@layout/fragment_reminder" >
+        <action
+            android:id="@+id/action_reminderFragment_to_addReminderFragment"
+            app:destination="@id/addReminderFragment" />
+    </fragment>
     <fragment
         android:id="@+id/statsFragment"
         android:name="com.psi.smarttoothcare.ui.stats.StatsFragment"
@@ -33,4 +37,9 @@
             android:name="url"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/addReminderFragment"
+        android:name="com.psi.smarttoothcare.AddReminderFragment"
+        android:label="fragment_add_reminder"
+        tools:layout="@layout/fragment_add_reminder" />
 </navigation>

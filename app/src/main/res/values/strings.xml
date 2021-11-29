@@ -7,4 +7,10 @@
     <string name="stats">Stats</string>
     <string name="reminder">Reminder</string>
     <string name="interesting_facts">Interesting Facts</string>
+    <string name="header">header</string>
+    <string name="your_reminder">Your Reminder</string>
+    <string name="have_you_brushed_your_teeth_properly_today">Have you brushed your teeth properly today?</string>
+    <string name="header_reminder">Header reminder</string>
+    <string name="indicator">Indicator</string>
+    <string name="button_add_new_reminder">Button add new reminder</string>
 </resources>
