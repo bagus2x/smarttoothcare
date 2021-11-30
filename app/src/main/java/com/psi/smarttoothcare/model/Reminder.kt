@@ -10,6 +10,7 @@ data class Reminder(
     val title: String,
     val description: String?,
     val time: Long,
+    val enabled: Boolean = false,
     val createdAt: Long = System.currentTimeMillis(),
     val updatedAt: Long = System.currentTimeMillis()
 )

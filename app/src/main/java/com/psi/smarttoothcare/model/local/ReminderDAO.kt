@@ -7,7 +7,7 @@ import com.psi.smarttoothcare.model.Reminder
 @Dao
 interface ReminderDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun create(reminder: Reminder)
 
     @Query("SELECT * FROM Reminder WHERE id = :reminderId")

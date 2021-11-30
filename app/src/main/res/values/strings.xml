@@ -13,4 +13,10 @@
     <string name="header_reminder">Header reminder</string>
     <string name="indicator">Indicator</string>
     <string name="button_add_new_reminder">Button add new reminder</string>
+    <string name="add_new_reminder">Add new reminder</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="time">Time</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>

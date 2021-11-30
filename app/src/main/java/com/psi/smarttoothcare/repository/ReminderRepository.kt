@@ -18,5 +18,7 @@ class ReminderRepository @Inject constructor(private val reminderDAO: ReminderDA
         reminderDAO.create(reminder)
     }.subscribeOn(Schedulers.io())
 
-
+    fun delete(reminder: Reminder): Completable = Completable.fromAction {
+        reminderDAO.delete(reminder)
+    }.subscribeOn(Schedulers.io())
 }
