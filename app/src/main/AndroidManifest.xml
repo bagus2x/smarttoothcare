@@ -15,6 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartToothCare"
         tools:ignore="AllowBackup">
+        <receiver
+            android:name=".broadcastreceiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
         <activity
             android:name=".MainActivity"
             android:exported="false" />

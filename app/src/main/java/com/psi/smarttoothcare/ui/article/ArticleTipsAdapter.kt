@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.psi.smarttoothcare.databinding.VpItemTipBinding
 import com.psi.smarttoothcare.model.Article
 
@@ -23,7 +24,11 @@ class ArticleTipsAdapter : RecyclerView.Adapter<ArticleTipsAdapter.ViewHolder>()
         fun bind(article: Article) {
             binding.tvTitle.text = article.title
             binding.tvEstimation.text = article.estimation
-            Glide.with(itemView).load(article.image).into(binding.sivImage)
+            Glide
+                .with(itemView)
+                .load(article.image)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .into(binding.sivImage)
         }
     }
 

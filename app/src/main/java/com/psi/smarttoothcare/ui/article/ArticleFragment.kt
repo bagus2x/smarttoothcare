@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.psi.smarttoothcare.databinding.FragmentArticleBinding
@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ArticleFragment : Fragment() {
     private var _binding: FragmentArticleBinding? = null
     private val binding get() = _binding!!
-    private val articleViewModel by viewModels<ArticleViewModel>()
+    private val articleViewModel by activityViewModels<ArticleViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentArticleBinding.inflate(inflater, container, false)

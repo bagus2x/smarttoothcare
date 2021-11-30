@@ -10,7 +10,7 @@
         android:icon="@drawable/ic_notification"
         android:title="@string/reminder" />
     <item
-        android:id="@+id/statsFragment"
+        android:id="@+id/historyFragment"
         android:icon="@drawable/ic_chart"
         android:title="@string/stats" />
 </menu>

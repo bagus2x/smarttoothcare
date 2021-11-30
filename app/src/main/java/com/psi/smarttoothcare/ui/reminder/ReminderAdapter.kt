@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.psi.smarttoothcare.databinding.RvItemReminderBinding
 import com.psi.smarttoothcare.model.Reminder
+import java.text.SimpleDateFormat
 import java.util.*
 
 class ReminderAdapter : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
@@ -16,23 +17,17 @@ class ReminderAdapter : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
 
         override fun areContentsTheSame(old: Reminder, new: Reminder) = old == new
     })
-    private val calendar = Calendar.getInstance()
     private var onItemClickListener: ((Reminder) -> Unit)? = null
+    private var onItemLongClickListener: ((Reminder) -> Unit)? = null
+    private var onItemToggleListener: ((Reminder, Boolean) -> Unit)? = null
+    private var simpleDateFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
 
     inner class ViewHolder(val binding: RvItemReminderBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(reminder: Reminder) {
             binding.swToggle.isChecked = reminder.enabled
-            binding.tvTime.text = time(reminder.time)
+            binding.tvTime.text = simpleDateFormat.format(reminder.time)
             binding.tvDescription.text = reminder.description
-        }
-
-        private fun time(date: Long): String {
-            calendar.timeInMillis = date
-            val hour = calendar.get(Calendar.HOUR)
-            val minute = calendar.get(Calendar.MINUTE)
-
-            return "$hour : $minute"
         }
     }
 
@@ -48,6 +43,27 @@ class ReminderAdapter : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
         holder.binding.root.setOnClickListener {
             onItemClickListener?.let { it(reminder) }
         }
+
+        holder.binding.root.setOnLongClickListener {
+            onItemLongClickListener?.let { it(reminder) }
+            true
+        }
+
+        holder.binding.swToggle.setOnCheckedChangeListener { _, isChecked ->
+            onItemToggleListener?.let { it(reminder, isChecked) }
+        }
+    }
+
+    fun setOnItemClickListener(listener: (Reminder) -> Unit) {
+        onItemClickListener = listener
+    }
+
+    fun setOnItemLongClickListener(listener: (Reminder) -> Unit) {
+        onItemLongClickListener = listener
+    }
+
+    fun setOnItemToggleListener(listener: (Reminder, Boolean) -> Unit) {
+        onItemToggleListener = listener
     }
 
     override fun getItemCount() = differ.currentList.size

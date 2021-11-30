@@ -10,12 +10,16 @@ import javax.inject.Singleton
 @Singleton
 class ReminderRepository @Inject constructor(private val reminderDAO: ReminderDAO) {
 
+    fun create(reminder: Reminder): Completable = Completable.fromAction {
+        reminderDAO.create(reminder)
+    }.subscribeOn(Schedulers.io())
+
     fun observeReminders() = reminderDAO.observeReminders()
 
     fun observeReminder(reminderId: Int) = reminderDAO.observeReminder(reminderId)
 
-    fun create(reminder: Reminder): Completable = Completable.fromAction {
-        reminderDAO.create(reminder)
+    fun update(reminder: Reminder): Completable = Completable.fromAction {
+        reminderDAO.update(reminder)
     }.subscribeOn(Schedulers.io())
 
     fun delete(reminder: Reminder): Completable = Completable.fromAction {

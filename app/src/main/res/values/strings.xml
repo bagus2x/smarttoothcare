@@ -20,4 +20,6 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="smart_toothcare">Smart Toothcare</string>
+    <string name="update">Update</string>
+    <string name="update_reminder">Update reminder</string>
 </resources>

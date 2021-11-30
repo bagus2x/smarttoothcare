@@ -23,7 +23,6 @@ class ArticleDetailFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,7 +41,7 @@ class ArticleDetailFragment : Fragment() {
                     binding.pbPageLoading.isGone = true
                 }
             }
-            settings.javaScriptEnabled = true
+
             loadUrl(args.url)
         }
     }

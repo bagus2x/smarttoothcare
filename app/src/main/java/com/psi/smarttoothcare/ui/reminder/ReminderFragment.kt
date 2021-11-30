@@ -14,25 +14,27 @@ import dagger.hilt.android.AndroidEntryPoint
 class ReminderFragment : Fragment() {
     private var _binding: FragmentReminderBinding? = null
     private val binding get() = _binding!!
-    private lateinit var bottomSheetDialog: AddReminderFragment
+    private lateinit var addReminderFragment: AddReminderFragment
+    private lateinit var updateReminderFragment: UpdateReminderFragment
     private val reminderViewModel by viewModels<ReminderViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentReminderBinding.inflate(inflater, container, false)
-        bottomSheetDialog = AddReminderFragment()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupBottomSheetDialog()
         setupReminderRecyclerView()
+        setupReminderFragment()
     }
 
-    private fun setupBottomSheetDialog() {
+    private fun setupReminderFragment() {
+        updateReminderFragment = UpdateReminderFragment()
+        addReminderFragment = AddReminderFragment()
         binding.fabAddReminder.setOnClickListener {
-            bottomSheetDialog.show(childFragmentManager, "bsd")
+            addReminderFragment.show(childFragmentManager, addReminderFragment.tag)
         }
     }
 
@@ -47,6 +49,21 @@ class ReminderFragment : Fragment() {
         binding.rvTeethBrushingReminder.apply {
             adapter = reminderAdapter
             layoutManager = reminderLayoutManager
+        }
+
+        reminderAdapter.setOnItemClickListener {
+            val bundle = Bundle()
+            bundle.putParcelable(UpdateReminderFragment.ARG_REMINDER, it)
+            updateReminderFragment.arguments = bundle
+            updateReminderFragment.show(childFragmentManager, updateReminderFragment.tag)
+        }
+
+        reminderAdapter.setOnItemLongClickListener {
+            reminderViewModel.delete(it)
+        }
+
+        reminderAdapter.setOnItemToggleListener { reminder, isChecked ->
+            reminderViewModel.update(reminder.copy(enabled = isChecked))
         }
     }
 

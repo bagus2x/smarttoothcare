@@ -1,4 +1,4 @@
-package com.psi.smarttoothcare.ui.stats
+package com.psi.smarttoothcare.ui.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.psi.smarttoothcare.databinding.FragmentStatsBinding
 
-class StatsFragment : Fragment() {
+class History : Fragment() {
     private var _binding: FragmentStatsBinding? = null
     private val binding get() = _binding!!
 

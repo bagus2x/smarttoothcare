@@ -1,9 +1,12 @@
 package com.psi.smarttoothcare.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "Reminder")
+@Parcelize
 data class Reminder(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
@@ -13,4 +16,4 @@ data class Reminder(
     val enabled: Boolean = false,
     val createdAt: Long = System.currentTimeMillis(),
     val updatedAt: Long = System.currentTimeMillis()
-)
+) : Parcelable
