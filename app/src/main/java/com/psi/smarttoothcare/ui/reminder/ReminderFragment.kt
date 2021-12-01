@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.psi.smarttoothcare.broadcastreceiver.ReminderReceiver
 import com.psi.smarttoothcare.databinding.FragmentReminderBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -60,9 +61,17 @@ class ReminderFragment : Fragment() {
 
         reminderAdapter.setOnItemLongClickListener {
             reminderViewModel.delete(it)
+            if (it.enabled) {
+                ReminderReceiver.cancelReminder(requireContext(), it)
+            }
         }
 
         reminderAdapter.setOnItemToggleListener { reminder, isChecked ->
+            if (isChecked) {
+                ReminderReceiver.setReminder(requireContext(), reminder)
+            } else {
+                ReminderReceiver.cancelReminder(requireContext(), reminder)
+            }
             reminderViewModel.update(reminder.copy(enabled = isChecked))
         }
     }

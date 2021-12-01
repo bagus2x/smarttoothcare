@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".STCApplication"
@@ -16,9 +18,15 @@
         android:theme="@style/Theme.SmartToothCare"
         tools:ignore="AllowBackup">
         <receiver
-            android:name=".broadcastreceiver.AlarmReceiver"
+            android:name=".broadcastreceiver.ReminderReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true"
+            tools:ignore="ExportedReceiver" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.NOTIFY" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".MainActivity"

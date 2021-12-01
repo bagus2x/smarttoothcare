@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000">
+       <KeyFrameSet>
+       </KeyFrameSet>
+        <OnSwipe motion:touchAnchorId="@+id/iv_header" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/cv_header"
+            android:elevation="12dp"
+            motion:layout_constraintEnd_toEndOf="@id/iv_header"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            motion:layout_constraintBottom_toBottomOf="@id/iv_header"
+            android:layout_marginBottom="-50dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            motion:layout_constraintStart_toStartOf="@id/iv_header" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/cv_header"
+            android:elevation="12dp"
+            motion:layout_constraintEnd_toEndOf="@id/iv_header"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            motion:layout_constraintStart_toStartOf="@id/iv_header"
+            motion:layout_editor_absoluteY="199dp"
+            motion:layout_constraintBottom_toTopOf="@+id/cv_header" />
+        <Constraint
+            android:layout_height="250dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:id="@+id/iv_header"
+            motion:layout_constraintBottom_toTopOf="parent" />
+    </ConstraintSet>
+</MotionScene>

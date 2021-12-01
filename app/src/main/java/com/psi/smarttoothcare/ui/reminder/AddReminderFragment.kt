@@ -80,6 +80,7 @@ class AddReminderFragment : BottomSheetDialogFragment(), TimePickerDialog.OnTime
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
         calendar.set(Calendar.MINUTE, minute)
+        calendar.set(Calendar.SECOND, 0)
 
         val time = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(calendar.time)
 
