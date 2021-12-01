@@ -18,7 +18,6 @@ import com.psi.smarttoothcare.R
 import com.psi.smarttoothcare.model.Reminder
 import com.psi.smarttoothcare.repository.ReminderRepository
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
