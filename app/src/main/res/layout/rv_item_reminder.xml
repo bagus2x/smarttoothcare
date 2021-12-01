@@ -11,17 +11,6 @@
     android:paddingEnd="16dp"
     android:paddingBottom="12dp">
 
-    <ImageView
-        android:id="@+id/iv_indicator"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/indicator"
-        android:src="@drawable/ic_evening"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="H, 1:1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@android:color/holo_orange_light" />
 
     <TextView
         android:id="@+id/tv_time"
@@ -32,7 +21,7 @@
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/sw_toggle"
-        app:layout_constraintStart_toEndOf="@id/iv_indicator"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="04:00 AM" />
 
@@ -46,7 +35,7 @@
         android:maxLines="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/sw_toggle"
-        app:layout_constraintStart_toEndOf="@id/iv_indicator"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="@tools:sample/lorem/random" />
 
     <androidx.appcompat.widget.SwitchCompat
