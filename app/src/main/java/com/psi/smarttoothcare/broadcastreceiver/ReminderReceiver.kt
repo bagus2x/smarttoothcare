@@ -47,7 +47,6 @@ class ReminderReceiver : BroadcastReceiver() {
                 AlarmManager.INTERVAL_DAY,
                 pendingIntent
             )
-            Timber.i("Reminder set successfully")
         }
 
         @SuppressLint("UnspecifiedImmutableFlag")
