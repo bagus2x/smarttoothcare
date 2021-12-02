@@ -9,6 +9,7 @@ import android.widget.TimePicker
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
+import com.psi.smarttoothcare.broadcastreceiver.ReminderReceiver
 import com.psi.smarttoothcare.databinding.FragmentUpdateReminderBinding
 import com.psi.smarttoothcare.model.Reminder
 import com.psi.smarttoothcare.utils.makeSnackbar
@@ -58,6 +59,7 @@ class UpdateReminderFragment : BottomSheetDialogFragment(), TimePickerDialog.OnT
                             time = time
                         )
                         reminderViewModel.update(newReminder)
+                        if (reminder.enabled) ReminderReceiver.setReminder(requireContext(), newReminder)
                         dismiss()
                     }
                 }
@@ -89,6 +91,8 @@ class UpdateReminderFragment : BottomSheetDialogFragment(), TimePickerDialog.OnT
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
         calendar.set(Calendar.MINUTE, minute)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
 
         val time = simpleAmPm(calendar)
 

@@ -2,6 +2,7 @@ package com.psi.smarttoothcare.di
 
 import android.content.Context
 import androidx.room.Room
+import com.psi.smarttoothcare.model.local.HistoryDAO
 import com.psi.smarttoothcare.model.local.ReminderDAO
 import com.psi.smarttoothcare.model.local.STCDatabase
 import dagger.Module
@@ -27,5 +28,11 @@ object DatabaseModule {
     @Provides
     fun provideReminderDAO(stcDatabase: STCDatabase): ReminderDAO {
         return stcDatabase.getReminderDAO()
+    }
+
+    @Singleton
+    @Provides
+    fun provideHistoryDAO(stcDatabase: STCDatabase): HistoryDAO {
+        return stcDatabase.getHistoryDAO()
     }
 }

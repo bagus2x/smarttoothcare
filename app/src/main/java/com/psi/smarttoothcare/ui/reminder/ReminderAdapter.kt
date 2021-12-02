@@ -49,8 +49,8 @@ class ReminderAdapter : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
             true
         }
 
-        holder.binding.swToggle.setOnCheckedChangeListener { _, isChecked ->
-            onItemToggleListener?.let { it(reminder, isChecked) }
+        holder.binding.swToggle.setOnClickListener {
+            onItemToggleListener?.let { it(reminder, holder.binding.swToggle.isChecked) }
         }
     }
 

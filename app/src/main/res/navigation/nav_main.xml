@@ -22,9 +22,9 @@
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.psi.smarttoothcare.ui.history.History"
+        android:name="com.psi.smarttoothcare.ui.history.HistoryFragment"
         android:label="fragment_stats"
-        tools:layout="@layout/fragment_stats" />
+        tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/articleDetailFragment"
         android:name="com.psi.smarttoothcare.ui.articledetail.ArticleDetailFragment"

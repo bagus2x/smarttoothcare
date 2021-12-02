@@ -68,9 +68,9 @@ class ReminderFragment : Fragment() {
 
         reminderAdapter.setOnItemToggleListener { reminder, isChecked ->
             if (isChecked) {
-                ReminderReceiver.setReminder(requireContext(), reminder)
+                ReminderReceiver.setReminder(requireActivity().applicationContext, reminder)
             } else {
-                ReminderReceiver.cancelReminder(requireContext(), reminder)
+                ReminderReceiver.cancelReminder(requireActivity().applicationContext, reminder)
             }
             reminderViewModel.update(reminder.copy(enabled = isChecked))
         }

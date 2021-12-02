@@ -13,6 +13,7 @@ import com.psi.smarttoothcare.databinding.FragmentAddReminderBinding
 import com.psi.smarttoothcare.model.Reminder
 import com.psi.smarttoothcare.utils.makeSnackbar
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -81,6 +82,9 @@ class AddReminderFragment : BottomSheetDialogFragment(), TimePickerDialog.OnTime
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
         calendar.set(Calendar.MINUTE, minute)
         calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+
+        Timber.i(calendar.time.toString())
 
         val time = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(calendar.time)
 

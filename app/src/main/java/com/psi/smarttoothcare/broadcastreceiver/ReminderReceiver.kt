@@ -15,15 +15,17 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.psi.smarttoothcare.MainActivity
 import com.psi.smarttoothcare.R
+import com.psi.smarttoothcare.model.History
 import com.psi.smarttoothcare.model.Reminder
-import com.psi.smarttoothcare.repository.ReminderRepository
+import com.psi.smarttoothcare.repository.HistoryRepository
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ReminderReceiver : BroadcastReceiver() {
     @Inject
-    lateinit var reminderRepository: ReminderRepository
+    lateinit var historyRepository: HistoryRepository
 
     companion object {
         private const val NOTIFICATION_ID = 100
@@ -60,13 +62,22 @@ class ReminderReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val title = """
-            Apakah kui udah gosok gigigi
+         aaaa
             ${intent.getStringExtra(REMINDER_TITLE)}
         """.trimIndent()
         val description = """
-            Gosook gigilah
+        bbb
             ${intent.getStringExtra(REMINDER_DESCRIPTION)}
         """.trimIndent()
+
+        Timber.i("Dipanggil $title")
+
+        historyRepository.create(History(name = title)).subscribe({
+            Timber.i("Sukses")
+        }) {
+            Timber.e("Error nih aduh")
+            it.printStackTrace()
+        }
 
         showAlarmNotification(context, title, description)
     }
