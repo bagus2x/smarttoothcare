@@ -17,15 +17,18 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
         override fun areContentsTheSame(old: History, new: History) = old == new
     })
-    private var onItemClickListener: ((History) -> Unit)? = null
-    private var onItemLongClickListener: ((History) -> Unit)? = null
     private var onItemToggleListener: ((History, Boolean) -> Unit)? = null
-    private var simpleDateFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+    private var simpleDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+    private var simpleTimeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
 
     inner class ViewHolder(val binding: RvItemHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(history: History) {
-            binding.tvName.text = history.name
+            binding.tvTitle.text = history.reminder.title
+            binding.tvDescription.text = history.reminder.description
+            binding.cbCompleted.isChecked = history.completed
+            binding.tvTime.text = simpleTimeFormat.format(history.reminder.time)
+            binding.tvDate.text = simpleDateFormat.format(history.createdAt)
         }
     }
 
@@ -38,26 +41,9 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
         val history = differ.currentList[position]
         holder.bind(history)
 
-        holder.binding.root.setOnClickListener {
-            onItemClickListener?.let { it(history) }
+        holder.binding.cbCompleted.setOnClickListener {
+            onItemToggleListener?.let { it(history, holder.binding.cbCompleted.isChecked) }
         }
-
-        holder.binding.root.setOnLongClickListener {
-            onItemLongClickListener?.let { it(history) }
-            true
-        }
-//
-//        holder.binding.swToggle.setOnCheckedChangeListener { _, isChecked ->
-//            onItemToggleListener?.let { it(history, isChecked) }
-//        }
-    }
-
-    fun setOnItemClickListener(listener: (History) -> Unit) {
-        onItemClickListener = listener
-    }
-
-    fun setOnItemLongClickListener(listener: (History) -> Unit) {
-        onItemLongClickListener = listener
     }
 
     fun setOnItemToggleListener(listener: (History, Boolean) -> Unit) {

@@ -13,7 +13,7 @@ interface HistoryDAO {
     @Query("SELECT * FROM History WHERE id = :historyId")
     fun observeHistory(historyId: Int): LiveData<History>
 
-    @Query("SELECT * FROM History")
+    @Query("SELECT * FROM History ORDER BY createdAt DESC")
     fun observeHistories(): LiveData<List<History>>
 
     @Update

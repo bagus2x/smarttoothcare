@@ -29,16 +29,21 @@ class ReminderReceiver : BroadcastReceiver() {
 
     companion object {
         private const val NOTIFICATION_ID = 100
-        private const val REMINDER_TITLE = "key_title"
-        private const val REMINDER_DESCRIPTION = "key_description"
+        private const val REMINDER_ID = "reminder_id"
+        private const val REMINDER_TITLE = "reminder_title"
+        private const val REMINDER_DESCRIPTION = "reminder_description"
+        private const val REMINDER_TIME = "reminder_time"
 
         @SuppressLint("UnspecifiedImmutableFlag")
         fun setReminder(context: Context, reminder: Reminder) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-            val intent = Intent(context, ReminderReceiver::class.java)
-            intent.putExtra(REMINDER_TITLE, reminder.title)
-            intent.putExtra(REMINDER_DESCRIPTION, reminder.description)
+            val intent = Intent(context, ReminderReceiver::class.java).apply {
+                putExtra(REMINDER_ID, reminder.id)
+                putExtra(REMINDER_TITLE, reminder.title)
+                putExtra(REMINDER_DESCRIPTION, reminder.description)
+                putExtra(REMINDER_TIME, reminder.time)
+            }
 
             val pendingIntent = PendingIntent.getBroadcast(context, reminder.id, intent, 0)
 
@@ -61,25 +66,36 @@ class ReminderReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        val title = """
-         aaaa
-            ${intent.getStringExtra(REMINDER_TITLE)}
-        """.trimIndent()
-        val description = """
-        bbb
-            ${intent.getStringExtra(REMINDER_DESCRIPTION)}
-        """.trimIndent()
+        val reminderId = intent.getIntExtra(REMINDER_ID, 0)
+        val reminderTitle = intent.getStringExtra(REMINDER_TITLE)
+        val reminderDescription = intent.getStringExtra(REMINDER_DESCRIPTION)
+        val reminderTime = intent.getLongExtra(REMINDER_TIME, 0)
 
-        Timber.i("Dipanggil $title")
+        Timber.i("Description $reminderDescription")
 
-        historyRepository.create(History(name = title)).subscribe({
-            Timber.i("Sukses")
+        val notificationTitle = """
+            $reminderTitle
+        """.trimIndent().replace("\n", "")
+        val notificationMessage = """
+            $reminderDescription
+        """.trimIndent().replace("\n", "")
+
+        historyRepository.create(
+            History(
+                reminder = Reminder(
+                    id = reminderId,
+                    title = reminderTitle ?: "",
+                    description = reminderDescription ?: "",
+                    time = reminderTime
+                )
+            )
+        ).subscribe({
+
         }) {
-            Timber.e("Error nih aduh")
-            it.printStackTrace()
+            Timber.e(it.message)
         }
 
-        showAlarmNotification(context, title, description)
+        showAlarmNotification(context, notificationTitle, notificationMessage)
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
@@ -87,7 +103,7 @@ class ReminderReceiver : BroadcastReceiver() {
         val channelId = "Reminder_Channel"
         val channelName = "Reminder channel"
         val notificationManagerCompat = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
 
         val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_launcher_foreground)

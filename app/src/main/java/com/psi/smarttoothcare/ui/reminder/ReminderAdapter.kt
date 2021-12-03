@@ -17,8 +17,8 @@ class ReminderAdapter : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
 
         override fun areContentsTheSame(old: Reminder, new: Reminder) = old == new
     })
-    private var onItemClickListener: ((Reminder) -> Unit)? = null
-    private var onItemLongClickListener: ((Reminder) -> Unit)? = null
+    private var onClickDeleteButtonListener: ((Reminder) -> Unit)? = null
+    private var onClickUpdateButtonListener: ((Reminder) -> Unit)? = null
     private var onItemToggleListener: ((Reminder, Boolean) -> Unit)? = null
     private var simpleDateFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
 
@@ -27,6 +27,7 @@ class ReminderAdapter : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
         fun bind(reminder: Reminder) {
             binding.swToggle.isChecked = reminder.enabled
             binding.tvTime.text = simpleDateFormat.format(reminder.time)
+            binding.tvTitle.text = reminder.title
             binding.tvDescription.text = reminder.description
         }
     }
@@ -40,13 +41,12 @@ class ReminderAdapter : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
         val reminder = differ.currentList[position]
         holder.bind(reminder)
 
-        holder.binding.root.setOnClickListener {
-            onItemClickListener?.let { it(reminder) }
+        holder.binding.ibDelete.setOnClickListener {
+            onClickDeleteButtonListener?.let { it(reminder) }
         }
 
-        holder.binding.root.setOnLongClickListener {
-            onItemLongClickListener?.let { it(reminder) }
-            true
+        holder.binding.ibUpdate.setOnClickListener {
+            onClickUpdateButtonListener?.let { it(reminder) }
         }
 
         holder.binding.swToggle.setOnClickListener {
@@ -54,12 +54,12 @@ class ReminderAdapter : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
         }
     }
 
-    fun setOnItemClickListener(listener: (Reminder) -> Unit) {
-        onItemClickListener = listener
+    fun setOnClickDeleteButtonListener(listener: (Reminder) -> Unit) {
+        onClickDeleteButtonListener = listener
     }
 
-    fun setOnItemLongClickListener(listener: (Reminder) -> Unit) {
-        onItemLongClickListener = listener
+    fun setOnClickUpdateButtonListener(listener: (Reminder) -> Unit) {
+        onClickUpdateButtonListener = listener
     }
 
     fun setOnItemToggleListener(listener: (Reminder, Boolean) -> Unit) {

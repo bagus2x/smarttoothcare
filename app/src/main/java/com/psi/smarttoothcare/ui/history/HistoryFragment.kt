@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.psi.smarttoothcare.databinding.FragmentHistoryBinding
-import com.psi.smarttoothcare.model.History
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class HistoryFragment : Fragment() {
@@ -29,13 +27,16 @@ class HistoryFragment : Fragment() {
         val historyAdapter = HistoryAdapter()
 
         historyViewModel.histories.observe(viewLifecycleOwner) {
-            Timber.i("Hasil: $it")
             historyAdapter.differ.submitList(it)
         }
 
         binding.rvHistory.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = historyAdapter
+        }
+
+        historyAdapter.setOnItemToggleListener { history, isChecked ->
+            historyViewModel.update(history.copy(completed = isChecked))
         }
     }
 

@@ -52,14 +52,14 @@ class ReminderFragment : Fragment() {
             layoutManager = reminderLayoutManager
         }
 
-        reminderAdapter.setOnItemClickListener {
+        reminderAdapter.setOnClickUpdateButtonListener {
             val bundle = Bundle()
             bundle.putParcelable(UpdateReminderFragment.ARG_REMINDER, it)
             updateReminderFragment.arguments = bundle
             updateReminderFragment.show(childFragmentManager, updateReminderFragment.tag)
         }
 
-        reminderAdapter.setOnItemLongClickListener {
+        reminderAdapter.setOnClickDeleteButtonListener {
             reminderViewModel.delete(it)
             if (it.enabled) {
                 ReminderReceiver.cancelReminder(requireContext(), it)
