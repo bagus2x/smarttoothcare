@@ -20,6 +20,7 @@ import com.psi.smarttoothcare.model.Reminder
 import com.psi.smarttoothcare.repository.HistoryRepository
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,9 +48,21 @@ class ReminderReceiver : BroadcastReceiver() {
 
             val pendingIntent = PendingIntent.getBroadcast(context, reminder.id, intent, 0)
 
+            val prevCalendar = Calendar.getInstance()
+            prevCalendar.timeInMillis = reminder.time
+            var time = reminder.time
+
+            if (reminder.time < System.currentTimeMillis()) {
+                val calendar = Calendar.getInstance()
+                calendar.add(Calendar.DATE, 1)
+                calendar.set(Calendar.HOUR_OF_DAY, prevCalendar.get(Calendar.HOUR_OF_DAY))
+                calendar.set(Calendar.MINUTE, prevCalendar.get(Calendar.MINUTE))
+                time = calendar.timeInMillis
+            }
+
             alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
-                reminder.time,
+                time,
                 AlarmManager.INTERVAL_DAY,
                 pendingIntent
             )

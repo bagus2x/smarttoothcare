@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.psi.smarttoothcare.broadcastreceiver.ReminderReceiver
 import com.psi.smarttoothcare.databinding.FragmentReminderBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ReminderFragment : Fragment() {
@@ -67,6 +68,7 @@ class ReminderFragment : Fragment() {
         }
 
         reminderAdapter.setOnItemToggleListener { reminder, isChecked ->
+            Timber.i(reminder.toString())
             if (isChecked) {
                 ReminderReceiver.setReminder(requireActivity().applicationContext, reminder)
             } else {
