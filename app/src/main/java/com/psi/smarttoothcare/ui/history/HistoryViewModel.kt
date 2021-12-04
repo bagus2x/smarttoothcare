@@ -25,10 +25,6 @@ class HistoryViewModel @Inject constructor(private val historyRepository: Histor
     }
 
     fun update(history: History) {
-        val o = Observable.create<String> {
-
-        }
-
         compositeDisposable += historyRepository.update(history)
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
         }) {
