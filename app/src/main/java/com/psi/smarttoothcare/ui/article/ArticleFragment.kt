@@ -56,7 +56,7 @@ class ArticleFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        articleViewModel.facts.observe(viewLifecycleOwner) {
+        articleViewModel.tips.observe(viewLifecycleOwner) {
             tipsAdapter.differ.submitList(it)
         }
 
