@@ -21,16 +21,15 @@ object DatabaseModule {
     fun provideSTCDatabase(@ApplicationContext context: Context): STCDatabase {
         return Room
             .databaseBuilder(context, STCDatabase::class.java, "stc.db")
+            .createFromAsset("smtc.db")
             .build()
     }
 
-    @Singleton
     @Provides
     fun provideReminderDAO(stcDatabase: STCDatabase): ReminderDAO {
         return stcDatabase.getReminderDAO()
     }
 
-    @Singleton
     @Provides
     fun provideHistoryDAO(stcDatabase: STCDatabase): HistoryDAO {
         return stcDatabase.getHistoryDAO()

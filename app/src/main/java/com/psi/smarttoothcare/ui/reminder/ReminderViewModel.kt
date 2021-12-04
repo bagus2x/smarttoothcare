@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.psi.smarttoothcare.model.Reminder
 import com.psi.smarttoothcare.repository.ReminderRepository
+import com.psi.smarttoothcare.utils.plusAssign
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
 import javax.inject.Inject
@@ -16,24 +18,24 @@ class ReminderViewModel @Inject constructor(private val reminderRepository: Remi
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun create(reminder: Reminder) {
-        compositeDisposable.add(reminderRepository.create(reminder).subscribe({
+        compositeDisposable += reminderRepository.create(reminder).observeOn(AndroidSchedulers.mainThread()).subscribe({
         }) {
             Timber.e(it)
-        })
+        }
     }
 
     fun delete(reminder: Reminder) {
-        compositeDisposable.add(reminderRepository.delete(reminder).subscribe({
+        compositeDisposable += reminderRepository.delete(reminder).observeOn(AndroidSchedulers.mainThread()).subscribe({
         }) {
             Timber.e(it)
-        })
+        }
     }
 
     fun update(reminder: Reminder) {
-        compositeDisposable.add(reminderRepository.update(reminder).subscribe({
+        compositeDisposable += reminderRepository.update(reminder).observeOn(AndroidSchedulers.mainThread()).subscribe({
         }) {
             Timber.e(it)
-        })
+        }
     }
 
     override fun onCleared() {

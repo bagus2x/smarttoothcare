@@ -61,7 +61,6 @@ object NetworkModule {
             .build()
     }
 
-    @Singleton
     @Provides
     fun provideArticleService(retrofit: Retrofit): ArticleService {
         return retrofit.create(ArticleService::class.java)

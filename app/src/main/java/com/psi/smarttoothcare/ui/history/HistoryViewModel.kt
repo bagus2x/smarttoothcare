@@ -6,7 +6,6 @@ import com.psi.smarttoothcare.repository.HistoryRepository
 import com.psi.smarttoothcare.utils.plusAssign
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,15 +17,13 @@ class HistoryViewModel @Inject constructor(private val historyRepository: Histor
 
     fun create(history: History) {
         compositeDisposable += historyRepository.create(history).observeOn(AndroidSchedulers.mainThread()).subscribe({
-
         }) {
             Timber.e(it)
         }
     }
 
     fun update(history: History) {
-        compositeDisposable += historyRepository.update(history)
-            .observeOn(AndroidSchedulers.mainThread()).subscribe({
+        compositeDisposable += historyRepository.update(history).observeOn(AndroidSchedulers.mainThread()).subscribe({
         }) {
             Timber.e(it)
         }
