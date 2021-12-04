@@ -47,7 +47,7 @@ class ReminderReceiver : BroadcastReceiver() {
 
             val pendingIntent = PendingIntent.getBroadcast(context, reminder.id, intent, 0)
 
-            alarmManager.setInexactRepeating(
+            alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 reminder.time,
                 AlarmManager.INTERVAL_DAY,
