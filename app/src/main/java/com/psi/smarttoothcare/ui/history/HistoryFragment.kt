@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.psi.smarttoothcare.databinding.FragmentHistoryBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HistoryFragment : Fragment() {
@@ -40,7 +42,16 @@ class HistoryFragment : Fragment() {
         }
 
         historyAdapter.setOnClickDeleteButtonListener {
-            historyViewModel.delete(it)
+            val alert: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+            alert.setTitle("Delete history")
+            alert.setMessage("Are you sure you want to delete?")
+            alert.setPositiveButton("Yes") { _, _ ->
+                historyViewModel.delete(it)
+            }
+            alert.setNegativeButton("No") { dialog, _ ->
+                dialog.cancel()
+            }
+            alert.show()
         }
     }
 
