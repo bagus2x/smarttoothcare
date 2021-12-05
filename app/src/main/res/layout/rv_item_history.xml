@@ -77,9 +77,21 @@
         android:minWidth="0dp"
         android:minHeight="0dp"
         android:thumb="@drawable/switch_thumb"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ib_delete"
+        app:layout_constraintEnd_toEndOf="@+id/ib_delete"
+        app:layout_constraintStart_toStartOf="@+id/ib_delete"
         app:layout_constraintTop_toTopOf="parent"
         app:track="@drawable/switch_track"
         tools:text="&#8203;" />
+
+    <ImageButton
+        android:id="@+id/ib_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackgroundBorderless"
+        android:contentDescription="@string/button_delete_history"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cb_completed" />
 </androidx.constraintlayout.widget.ConstraintLayout>

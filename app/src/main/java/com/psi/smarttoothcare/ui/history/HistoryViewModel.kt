@@ -29,6 +29,13 @@ class HistoryViewModel @Inject constructor(private val historyRepository: Histor
         }
     }
 
+    fun delete(history: History) {
+        compositeDisposable += historyRepository.delete(history).observeOn(AndroidSchedulers.mainThread()).subscribe({
+        }) {
+            Timber.e(it)
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()

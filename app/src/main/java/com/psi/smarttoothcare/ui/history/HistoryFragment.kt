@@ -38,6 +38,10 @@ class HistoryFragment : Fragment() {
         historyAdapter.setOnItemToggleListener { history, isChecked ->
             historyViewModel.update(history.copy(completed = isChecked))
         }
+
+        historyAdapter.setOnClickDeleteButtonListener {
+            historyViewModel.delete(it)
+        }
     }
 
     override fun onDestroyView() {

@@ -20,6 +20,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
     private var onItemToggleListener: ((History, Boolean) -> Unit)? = null
     private var simpleDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
     private var simpleTimeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+    private var onClickDeleteButtonListener: ((History) -> Unit)? = null
 
     inner class ViewHolder(val binding: RvItemHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -44,10 +45,18 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
         holder.binding.cbCompleted.setOnClickListener {
             onItemToggleListener?.let { it(history, holder.binding.cbCompleted.isChecked) }
         }
+
+        holder.binding.ibDelete.setOnClickListener {
+            onClickDeleteButtonListener?.let { it(history) }
+        }
     }
 
     fun setOnItemToggleListener(listener: (History, Boolean) -> Unit) {
         onItemToggleListener = listener
+    }
+
+    fun setOnClickDeleteButtonListener(listener: (History) -> Unit) {
+        onClickDeleteButtonListener = listener
     }
 
     override fun getItemCount() = differ.currentList.size
